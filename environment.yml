@@ -1,0 +1,7 @@
+name: deepleran
+channels:
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+  - defaults
+dependencies:
+  - pip==20.0.2
+  - pycryptodome==3.11.0
