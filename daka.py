@@ -9,8 +9,8 @@ import base64
 import re
 from urllib.parse import quote
 
-username = ''  # 填入账号
-password = ''  # 填入密码
+USERNAME = '2020111107'  # 填入账号
+PASSWD = 'panYAN02130033'  # 填入密码
     
 session = requests.session()
 headers = {
@@ -155,9 +155,9 @@ def fill_form():
 def submit():
     key = jump_auth_with_key()
     print(key)
-    password = check_user_identy(username, password, key)
+    password = check_user_identy(USERNAME, PASSWD, key)
     print(password)
-    ok = login(username, password)
+    ok = login(USERNAME, PASSWD)
     if ok:
         pre_post()
         fill_form()
