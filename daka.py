@@ -9,6 +9,9 @@ import base64
 import re
 from urllib.parse import quote
 
+username = ''  # 填入账号
+password = ''  # 填入密码
+    
 session = requests.session()
 headers = {
     'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36'
@@ -150,8 +153,6 @@ def fill_form():
 # session.get("https://sc.ftqq.com/.send?text=校园打卡+&desp=" + content) server酱推送，可以填入自己的key
 
 def submit():
-    username = ''  # 填入账号
-    password = ''  # 填入密码
     key = jump_auth_with_key()
     print(key)
     password = check_user_identy(username, password, key)
