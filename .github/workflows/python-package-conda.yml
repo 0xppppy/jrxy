@@ -1,9 +1,8 @@
-name: Python Package using Conda
+name: 打卡
 
 on:
-  push:
   schedule:
-  # 定时任务，在每天的5点推送天气信息到邮箱
+  # 定时任务
     - cron: '6 * * * *'
     
     
@@ -26,6 +25,6 @@ jobs:
     - name: Install dependencies
       run: |
         conda env update --file environment.yml --name base
-    - name: Test with pytest
+    - name: 开始打卡
       run: |
         python daka.py
