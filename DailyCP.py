@@ -1,6 +1,5 @@
 import requests
 import os
-
 import json
 import time
 # 需要安装pycryptodome模块
@@ -8,16 +7,17 @@ from Crypto.Cipher import AES
 import base64
 import re
 from urllib.parse import quote
+import sys
+import getopt
 
-USERNAME = '2020111107'  # 填入账号
-PASSWD = 'panYAN02130033'  # 填入密码
-    
 session = requests.session()
 headers = {
-    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36'
+    'user-agent':
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36'
 }
 headers_form = {
-    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36',
+    'user-agent':
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36',
     'Content-Type': 'application/x-www-form-urlencoded'
 }
 domain_name = 'http://stu.hfut.edu.cn/'
@@ -40,13 +40,15 @@ def add_to_16(s):
 
 def encrypt(text, key):
     aes = AES.new(str.encode(key), AES.MODE_ECB)
-    encrypted_text = str(base64.encodebytes(aes.encrypt(add_to_16(text))), encoding='utf8').replace('\n', '')
+    encrypted_text = str(base64.encodebytes(aes.encrypt(add_to_16(text))),
+                         encoding='utf8').replace('\n', '')
     return encrypted_text
 
 
 def check_user_identy(username, password, key):
     password = encrypt(password, key)
-    url = 'https://cas.hfut.edu.cn/cas/policy/checkUserIdenty?username=' + username + '&password=' + password + '&_=' + get_stamp().__str__()
+    url = 'https://cas.hfut.edu.cn/cas/policy/checkUserIdenty?username=' + username + '&password=' + password + '&_=' + get_stamp(
+    ).__str__()
     r = session.get(url=url, headers=headers)
     # print(r.headers)
     # print(r.request.headers)
@@ -85,8 +87,10 @@ def login(username, password):
         'submit': '登录'
     }
     headers = {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36',
+        'Content-Type':
+        'application/x-www-form-urlencoded',
+        'User-Agent':
+        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36',
     }
 
     response = session.post(url=url, data=data, headers=headers)
@@ -137,10 +141,7 @@ def fill_form():
     post_data = make_data()
     print(post_data)
 
-    post_data.update({
-        "BY1": "1",
-        "DZ_SFSB": "1"
-    })
+    post_data.update({"BY1": "1", "DZ_SFSB": "1"})
     print(post_data)
     data = 'data={}'.format(quote(json.dumps(post_data, ensure_ascii=False).replace(' ', '')))
     post_url = 'http://stu.hfut.edu.cn/xsfw/sys/swmxsyqxxsjapp/modules/mrbpa/saveStuXx.do'
@@ -152,12 +153,13 @@ def fill_form():
 
 # session.get("https://sc.ftqq.com/.send?text=校园打卡+&desp=" + content) server酱推送，可以填入自己的key
 
-def submit():
+
+def submit(USERNAME, PASSWD):
     key = jump_auth_with_key()
     print(key)
     password = check_user_identy(USERNAME, PASSWD, key)
     print(password)
-    ok = login(USERNAME, PASSWD)
+    ok = login(USERNAME, password)
     if ok:
         pre_post()
         fill_form()
@@ -167,9 +169,27 @@ def submit():
         print('登录失败哦....')
 
 
-def main():
-    submit()
+def main(argv):
+    try:
+        opts, args = getopt.getopt(argv, "h", [])
+        for opt, arg in opts:
+            if opt == '-h':
+                print(
+                    "useage:\nDailyCP.py <account> <password> <location>\n\n<school>: the address prefix of your school, if the address of your school is \"sise.campusphere.net\", then you can input sise.\n<account>: the login account of your school, usually is your student number.\n<password>: your login password.\n<location>: e.g.:中国广东省佛山市禅城区福贤路X号"
+                )
+                sys.exit()
+        if len(args) != 2:
+            print('useage: DailyCP.py <USERNAME> <PASSWD>')
+            sys.exit()
+    except getopt.GetoptError:
+        print('useage: DailyCP.py <USERNAME> <PASSWD>')
+        sys.exit()
+    else:
+        USERNAME = str(args[0])
+        PASSWD = str(args[1])
+
+    submit(USERNAME, PASSWD)
 
 
 if __name__ == '__main__':
-    main()
+    main(sys.argv[1:])
