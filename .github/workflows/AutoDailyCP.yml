@@ -33,4 +33,4 @@ jobs:
         conda env update --file environment.yml --name base
     - name: 开始打卡
       run: |
-        python daka.py ${USERNAME} ${PASSWD}
+        python DailyCP.py ${USERNAME} ${PASSWD}
