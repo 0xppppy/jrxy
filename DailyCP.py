@@ -124,7 +124,7 @@ def pre_post():
     session.post(url=p_url2, headers=headers_form, data=data)
 
 
-def fill_form():
+def fill_form(SCT_SENDKEY=None):
     # 开始填写表单
     # pre_post() # 后面都使用5ngm
     # 下面开始填写表单
@@ -149,12 +149,12 @@ def fill_form():
     response = session.post(url=post_url, headers=headers_form, data=data)
     print(response.text)
     print("FINISH")
-    content = "同学\n" + response.text
-    
-#     session.get("https://sc.ftqq.com/.send?text=校园打卡+&desp=" + content) #server酱推送，可以填入自己的key
+    content = response.text
+    if SCT_SENDKEY != None:
+        session.get("https://sc.ftqq.com/" + SCT_SENDKEY + ".send?text=校园打卡+&desp=" + content) #server酱推送，可以填入自己的key
 
 
-def submit(USERNAME, PASSWD):
+def submit(USERNAME, PASSWD, SCT_SENDKEY=None):
     key = jump_auth_with_key()
 #     print(key)
     password = check_user_identy(USERNAME, PASSWD, key)
@@ -162,7 +162,7 @@ def submit(USERNAME, PASSWD):
     ok = login(USERNAME, password)
     if ok:
         pre_post()
-        fill_form()
+        fill_form(SCT_SENDKEY)
         return
 
     else:
@@ -178,7 +178,7 @@ def main(argv):
                     "useage: DailyCP.py <USERNAME> <PASSWD>"
                 )
                 sys.exit(1)
-        if len(args) != 2:
+        if len(args) != 2 or len(args) != 3:
             print('useage: DailyCP.py <USERNAME> <PASSWD>')
             sys.exit(1)
     except getopt.GetoptError:
@@ -187,10 +187,13 @@ def main(argv):
     else:
         USERNAME = str(args[0])
         PASSWD = str(args[1])
+        SCT_SENDKEY = None
+        if len(args) == 3:
+            SCT_SENDKEY = str(args[2])
     print("Get Username And Passwd")
     print("Start")
 
-    submit(USERNAME, PASSWD)
+    submit(USERNAME, PASSWD, SCT_SENDKEY)
 
 
 if __name__ == '__main__':
