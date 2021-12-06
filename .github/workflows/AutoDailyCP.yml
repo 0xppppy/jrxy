@@ -36,4 +36,4 @@ jobs:
           USERNAME: ${{secrets.USERNAME }}
           PASSWD: ${{secrets.PASSWD }}
       run: |
-        python DailyCP.py ${USERNAME}
+        python DailyCP.py ${USERNAME} ${PASSWD}
