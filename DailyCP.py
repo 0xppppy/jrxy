@@ -175,11 +175,10 @@ def main(argv):
         for opt, arg in opts:
             if opt == '-h':
                 print(
-                    "useage:\nDailyCP.py <account> <password> <location>\n\n<school>: the address prefix of your school, if the address of your school is \"sise.campusphere.net\", then you can input sise.\n<account>: the login account of your school, usually is your student number.\n<password>: your login password.\n<location>: e.g.:中国广东省佛山市禅城区福贤路X号"
+                    "useage: DailyCP.py <USERNAME> <PASSWD>"
                 )
                 sys.exit(1)
         if len(args) != 2:
-            print('args:', args)
             print('useage: DailyCP.py <USERNAME> <PASSWD>')
             sys.exit(1)
     except getopt.GetoptError:
@@ -195,5 +194,4 @@ def main(argv):
 
 
 if __name__ == '__main__':
-    print(sys.argv)
     main(sys.argv[1:])
