@@ -187,6 +187,8 @@ def main(argv):
     else:
         USERNAME = str(args[0])
         PASSWD = str(args[1])
+    print("Get Username And Passwd")
+    print("Start")
 
     submit(USERNAME, PASSWD)
 
