@@ -147,7 +147,8 @@ def fill_form():
     post_url = 'http://stu.hfut.edu.cn/xsfw/sys/swmxsyqxxsjapp/modules/mrbpa/saveStuXx.do'
 
     response = session.post(url=post_url, headers=headers_form, data=data)
-#     print(response.text)
+    print(response.text)
+    print("FINISH")
     content = "同学\n" + response.text
     
 #     session.get("https://sc.ftqq.com/.send?text=校园打卡+&desp=" + content) #server酱推送，可以填入自己的key
