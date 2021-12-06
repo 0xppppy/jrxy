@@ -32,6 +32,8 @@ jobs:
       run: |
         conda env update --file environment.yml --name base
     - name: 开始打卡
+      env:
+          USERNAME: ${{secrets.USERNAME }}
+          PASSWD: ${{secrets.PASSWD }}
       run: |
-        echo ${USERNAME} ${PASSWD}
-        python DailyCP.py ${USERNAME} ${PASSWD}
+        python DailyCP.py ${USERNAME}
