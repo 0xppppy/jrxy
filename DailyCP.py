@@ -174,15 +174,13 @@ def main(argv):
         opts, args = getopt.getopt(argv, "h", [])
         for opt, arg in opts:
             if opt == '-h':
-                print(
-                    "useage: DailyCP.py <USERNAME> <PASSWD>"
-                )
+                print('useage: \n    DailyCP.py <USERNAME> <PASSWD> \nor  \n    DailyCP.py <USERNAME> <PASSWD> <SCT_SENDKEY>')
                 sys.exit(1)
-        if len(args) != 2 or len(args) != 3:
-            print('useage: DailyCP.py <USERNAME> <PASSWD>')
+        if len(args) != 2 and len(args) != 3:
+            print('useage: \n    DailyCP.py <USERNAME> <PASSWD> \nor  \n    DailyCP.py <USERNAME> <PASSWD> <SCT_SENDKEY>')
             sys.exit(1)
     except getopt.GetoptError:
-        print('useage: DailyCP.py <USERNAME> <PASSWD>')
+        print('useage: \n    DailyCP.py <USERNAME> <PASSWD> \nor  \n    DailyCP.py <USERNAME> <PASSWD> <SCT_SENDKEY>')
         sys.exit(1)
     else:
         USERNAME = str(args[0])
