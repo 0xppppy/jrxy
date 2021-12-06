@@ -104,10 +104,10 @@ def login(username, password):
         app_id = r_list[0].replace('APPID:', '')
         app_name = r_list[1].replace('APPNAME:', '')
         name = real_name
-        print('[+]你好,{}...'.format(real_name))
+#         print('[+]你好,{}...'.format(real_name))
         return True
     except Exception as e:
-        print(e.__str__())
+#         print(e.__str__())
         return False
 
 
@@ -139,26 +139,25 @@ def fill_form():
         return post_data
 
     post_data = make_data()
-    print(post_data)
+#     print(post_data)
 
     post_data.update({"BY1": "1", "DZ_SFSB": "1"})
-    print(post_data)
+#     print(post_data)
     data = 'data={}'.format(quote(json.dumps(post_data, ensure_ascii=False).replace(' ', '')))
     post_url = 'http://stu.hfut.edu.cn/xsfw/sys/swmxsyqxxsjapp/modules/mrbpa/saveStuXx.do'
 
     response = session.post(url=post_url, headers=headers_form, data=data)
-    print(response.text)
-    content = name + "同学\n" + response.text
-
-
-# session.get("https://sc.ftqq.com/.send?text=校园打卡+&desp=" + content) server酱推送，可以填入自己的key
+#     print(response.text)
+    content = "同学\n" + response.text
+    
+#     session.get("https://sc.ftqq.com/.send?text=校园打卡+&desp=" + content) #server酱推送，可以填入自己的key
 
 
 def submit(USERNAME, PASSWD):
     key = jump_auth_with_key()
-    print(key)
+#     print(key)
     password = check_user_identy(USERNAME, PASSWD, key)
-    print(password)
+#     print(password)
     ok = login(USERNAME, password)
     if ok:
         pre_post()
