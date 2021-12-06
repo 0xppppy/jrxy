@@ -179,6 +179,7 @@ def main(argv):
                 )
                 sys.exit()
         if len(args) != 2:
+            print(args)
             print('useage: DailyCP.py <USERNAME> <PASSWD>')
             sys.exit()
     except getopt.GetoptError:
