@@ -177,14 +177,14 @@ def main(argv):
                 print(
                     "useage:\nDailyCP.py <account> <password> <location>\n\n<school>: the address prefix of your school, if the address of your school is \"sise.campusphere.net\", then you can input sise.\n<account>: the login account of your school, usually is your student number.\n<password>: your login password.\n<location>: e.g.:中国广东省佛山市禅城区福贤路X号"
                 )
-                sys.exit()
+                sys.exit(1)
         if len(args) != 2:
             print(args)
             print('useage: DailyCP.py <USERNAME> <PASSWD>')
-            sys.exit()
+            sys.exit(1)
     except getopt.GetoptError:
         print('useage: DailyCP.py <USERNAME> <PASSWD>')
-        sys.exit()
+        sys.exit(1)
     else:
         USERNAME = str(args[0])
         PASSWD = str(args[1])
