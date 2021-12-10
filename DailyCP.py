@@ -149,7 +149,7 @@ def fill_form(SCT_SENDKEY=None):
     response = session.post(url=post_url, headers=headers_form, data=data)
     print(response.text)
     print("FINISH")
-    content = response.text['msg']
+    content = json.loads(response.text)['msg']
     if SCT_SENDKEY != None:
         session.get("https://sc.ftqq.com/" + SCT_SENDKEY + ".send?text=校园打卡+&desp=" + content) #server酱推送，可以填入自己的key
 
