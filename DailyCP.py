@@ -190,7 +190,8 @@ def main(argv):
             SCT_SENDKEY = str(args[2])
     print("Get Username And Passwd")
     print("Start")
-
+    
+    print(PASSWD)
     submit(USERNAME, PASSWD, SCT_SENDKEY)
 
 
