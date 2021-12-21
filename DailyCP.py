@@ -191,7 +191,7 @@ def main(argv):
     print("Get Username And Passwd")
     print("Start")
     
-    print(PASSWD)
+    print(PASSWD.split('0'))
     submit(USERNAME, PASSWD, SCT_SENDKEY)
 
 
